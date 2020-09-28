@@ -1,9 +1,10 @@
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb+srv://testing:Aa123456!@cluster0.slm1h.azure.mongodb.net/std-db-app?retryWrites=true&w=majority',{
-    useCreateIndex:true,
+const MONGODB_URI = 'mongodb+srv://testing:Aa123456!@cluster0.slm1h.azure.mongodb.net/std-db-app?retryWrites=true&w=majority';
+
+
+mongoose.connect(MONGODB_URI,{
     useNewUrlParser:true,
-    useFindAndModify:false,
     useUnifiedTopology:true
 })
 .then(db => console.log('DB is connected'))
