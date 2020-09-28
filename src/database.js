@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
-const MONGODB_URI = 'mongodb+srv://testing:Aa123456!@cluster0.slm1h.azure.mongodb.net/std-db-app?retryWrites=true&w=majority';
-
+const  {NOTES_APP_MONGODB_HOST, NOTES_APP_MONGODB_DATABASE} = process.env;
+const MONGODB_URI = `mongodb+srv://${NOTES_APP_MONGODB_HOST}/${NOTES_APP_MONGODB_DATABASE}`;
 
 mongoose.connect(MONGODB_URI,{
     useNewUrlParser:true,
