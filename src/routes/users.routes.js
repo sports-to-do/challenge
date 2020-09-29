@@ -1,5 +1,5 @@
-const express = require('express');
-const router = express.Router();
+const router = require('express').Router();
+
 
 router.get('/users/signin',(req,resp)=>{
     resp.send('Ingresando a la aplicacion');
