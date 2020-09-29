@@ -11,8 +11,8 @@ usersCtrl.renderSignUpForm = (req,res) => {
 };
 
 usersCtrl.singup = async (req,res) => {
-
     const {name, email, password, confirm_password } = req.body;
+    res.send('signup');
 
 };
 
