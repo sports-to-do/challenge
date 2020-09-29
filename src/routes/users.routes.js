@@ -1,7 +1,12 @@
 const router = require('express').Router();
 
-const {renderSignUpForm,renderSigninForm,logout,singup,signin } = require('../controllers/users.controller');
-
+const {
+  renderSignUpForm,
+  singup,
+  renderSigninForm,
+  signin,
+  logout
+} = require('../controllers/users.controller');
 
 // Routes
 router.get('/users/signup', renderSignUpForm);
@@ -13,6 +18,5 @@ router.get('/users/signin', renderSigninForm);
 router.post('/users/signin', signin);
 
 router.get('/users/logout', logout);
-
 
 module.exports = router;
