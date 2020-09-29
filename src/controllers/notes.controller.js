@@ -21,7 +21,7 @@ notesCtrl.renderNotes = async (req, resp) => {
 };
 
 notesCtrl.renderEditForm = (req, resp) => {
-    resp.send('render edit note');
+    resp.render('notes/edit-note');
 };
 
 notesCtrl.updateNote = (req, resp) => {
