@@ -1,16 +1,27 @@
 const notesCtrl ={};
 
-notesCtrl.renderNoteForm = (req,resp)=>{
-    resp.send('Notes Add');
+notesCtrl.renderNoteForm = (req,resp) => {
+    resp.render();
 };
 
-notesCtrl.createNewNote = (req,resp)=>{
+notesCtrl.createNewNote = (req,resp) => {
     resp.send('new Note');
 };
 
-notesCtrl.renderNotes = (req,resp)=>{
+notesCtrl.renderNotes = (req,resp) => {
     resp.send('render Notes');
 };
 
+notesCtrl.renderEditForm =  (req,resp) => {
+    resp.send('render edit note');
+};
+
+notesCtrl.updateNote = (req,resp) => {
+    resp.send('update note');
+};
+
+notesCtrl.deleteNote = (req,resp) => {
+    resp.send('deleting note');
+};
 
 module.exports = notesCtrl;
