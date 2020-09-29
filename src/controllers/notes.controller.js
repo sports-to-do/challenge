@@ -1,6 +1,7 @@
 const notesCtrl ={};
 
 notesCtrl.renderNoteForm = (req,resp) => {
+    console.log(req.body);
     resp.render('notes/new-note');
 };
 
