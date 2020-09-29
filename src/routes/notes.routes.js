@@ -12,6 +12,7 @@ const {
     deleteNote
 } = require('../controllers/notes.controller');
 
+// New Note
 router.get('/notes/add', renderNoteForm);
 
 router.post('/notes/new-note', createNewNote);
