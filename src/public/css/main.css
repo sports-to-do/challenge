@@ -1,14 +1,14 @@
 body {
-    background: #c9d6ff; /* fallback for old browsers */
+    background: #284ab8; /* fallback for old browsers */
     background: -webkit-linear-gradient(
       to right,
-      #e2e2e2,
-      #c9d6ff
+      #13caca,
+      #19348b
     ); /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(
       to right,
-      #e2e2e2,
-      #c9d6ff
+      #138d96,
+      #162863
     ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   }
   
