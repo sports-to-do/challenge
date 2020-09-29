@@ -1,13 +1,18 @@
 const router = require('express').Router();
 
+const {renderSignUpForm,renderSigninForm,logout,singup,signin } = require('../controllers/users.controller');
 
-router.get('/users/signin',(req,resp)=>{
-    resp.send('Ingresando a la aplicacion');
-});
 
-router.get('/users/singup',(req,res)=>{
- res.send('Formulario de autenticacion');
-});
+// Routes
+router.get('/users/signup', renderSignUpForm);
+
+router.post('/users/signup', singup);
+
+router.get('/users/signin', renderSigninForm);
+
+router.post('/users/signin', signin);
+
+router.get('/users/logout', logout);
 
 
 module.exports = router;
