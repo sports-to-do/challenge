@@ -1,12 +1,13 @@
 const notesCtrl = {};
 
-const Note = require("../models/Note");
+// Models
+const Note = require('../models/Note');
 
-notesCtrl.renderNoteForm = (req, resp) => {
-    resp.render("notes/new-note");
+notesCtrl.renderNoteForm = (req, res) => {
+    res.render('notes/new-note');
 };
 
-notesCtrl.createNewNote = async (req, resp) => {
+notesCtrl.createNewNote = async (req, res) => {
     const {
         title,
         description
@@ -14,16 +15,16 @@ notesCtrl.createNewNote = async (req, resp) => {
     const errors = [];
     if (!title) {
         errors.push({
-            text: "please write a Title",
+            text: 'Please Write a Title.'
         });
     }
     if (!description) {
         errors.push({
-            text: "please write a Description",
+            text: 'Please Write a Description'
         });
     }
     if (errors.length > 0) {
-        resp.render("notes/new-note", {
+        res.render('notes/new-note', {
             errors,
             title,
             description,
@@ -31,47 +32,56 @@ notesCtrl.createNewNote = async (req, resp) => {
     } else {
         const newNote = new Note({
             title,
-            description,
+            description
         });
+        newNote.user = req.user.id;
         await newNote.save();
-        req.flash("success_msg", "Note Added Successfully");
-        resp.redirect("/notes");
+        req.flash('success_msg', 'Note Added Successfully');
+        res.redirect('/notes');
     }
 };
 
-notesCtrl.renderNotes = async (req, resp) => {
-    const notes = await Note.find().sort({
-        date: "desc"
-    }).lean();
-    resp.render("notes/all-notes", {
-        notes,
+notesCtrl.renderNotes = async (req, res) => {
+    const notes = await Note.find({
+            user: req.user.id
+        })
+        .sort({
+            date: 'desc'
+        })
+        .lean();
+    res.render('notes/all-notes', {
+        notes
     });
 };
 
-notesCtrl.renderEditForm = async (req, resp) => {
+notesCtrl.renderEditForm = async (req, res) => {
     const note = await Note.findById(req.params.id).lean();
-    resp.render("notes/edit-note", {
-        note,
+    if (note.user != req.user.id) {
+        req.flash('error_msg', 'Not Authorized');
+        return res.redirect('/notes');
+    }
+    res.render('notes/edit-note', {
+        note
     });
 };
 
-notesCtrl.updateNote = async (req, resp) => {
+notesCtrl.updateNote = async (req, res) => {
     const {
         title,
         description
     } = req.body;
     await Note.findByIdAndUpdate(req.params.id, {
         title,
-        description,
+        description
     });
-    req.flash("success_msg", "Note Updated Successfully");
-    resp.redirect("/notes");
+    req.flash('success_msg', 'Note Updated Successfully');
+    res.redirect('/notes');
 };
 
-notesCtrl.deleteNote = async (req, resp) => {
+notesCtrl.deleteNote = async (req, res) => {
     await Note.findByIdAndDelete(req.params.id);
-    req.flash("success_msg", "Note Delete Successfully");
-    resp.redirect("/notes");
+    req.flash('success_msg', 'Note Deleted Successfully');
+    res.redirect('/notes');
 };
 
 module.exports = notesCtrl;
