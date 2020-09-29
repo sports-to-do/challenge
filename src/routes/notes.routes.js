@@ -1,9 +1,14 @@
-const express = require('express');
-const router = express.Router();
+const { Router } = require('express');
+const router = Router();
 
-router.get('/notes',(req,resp)=>{
-    resp.send('Notes from database');
-});
+const {renderNoteForm ,createNewNote, renderNotes }= require('../controllers/notes.controller');
 
+router.get('/notes/add',renderNoteForm);
+router.post('/nodes/add',createNewNote);
+
+router.get('/notes', renderNotes);
+
+//Edit notes
+router.get('/notes/edit/:id');
 
 module.exports = router;
