@@ -31,7 +31,7 @@ app.use(express.urlencoded({extended:false}));
 
 //Routes
 app.get('/', (req, res)=>{
- res.send('Hola');
+ res.render('index');
 });
 
 //Static files
