@@ -1,13 +1,13 @@
-const notesCtrl = {};
+const eventCtrl = {};
 
 // Models
-const Note = require('../models/Note');
+const Event = require('../models/Note');
 
-notesCtrl.renderNoteForm = (req, res) => {
+eventCtrl.renderNoteForm = (req, res) => {
   res.render('notes/new-note');
 };
 
-notesCtrl.createNewNote = async (req, res) => {
+eventCtrl.createNewNote = async (req, res) => {
   const { title, description } = req.body;
   const errors = [];
   if (!title) {
@@ -23,7 +23,7 @@ notesCtrl.createNewNote = async (req, res) => {
       description,
     });
   } else {
-    const newNote = new Note({ title, description });
+    const newNote = new Event({ title, description });
     newNote.user = req.user.id;
     await newNote.save();
     req.flash('success_msg', 'Event Added Successfully');
@@ -32,8 +32,8 @@ notesCtrl.createNewNote = async (req, res) => {
 };
 
 
-notesCtrl.renderNotes = async (req, res) => {
-  const notes = await Note.find({ user: req.user.id })
+eventCtrl.renderNotes = async (req, res) => {
+  const notes = await Event.find({ user: req.user.id })
     .sort({ date: 'desc' })
     .lean();
   res.render('notes/all-notes', { notes });
@@ -41,8 +41,8 @@ notesCtrl.renderNotes = async (req, res) => {
 
 
 
-notesCtrl.renderEditForm = async (req, res) => {
-  const note = await Note.findById(req.params.id).lean();
+eventCtrl.renderEditForm = async (req, res) => {
+  const note = await Event.findById(req.params.id).lean();
   if (note.user != req.user.id) {
     req.flash('error_msg', 'Not Authorized');
     return res.redirect('/notes');
@@ -50,17 +50,17 @@ notesCtrl.renderEditForm = async (req, res) => {
   res.render('notes/edit-note', { note });
 };
 
-notesCtrl.updateNote = async (req, res) => {
+eventCtrl.updateNote = async (req, res) => {
   const { title, description } = req.body;
-  await Note.findByIdAndUpdate(req.params.id, { title, description });
+  await Event.findByIdAndUpdate(req.params.id, { title, description });
   req.flash('success_msg', 'Event Updated Successfully');
   res.redirect('/notes');
 };
 
-notesCtrl.deleteNote = async (req, res) => {
-  await Note.findByIdAndDelete(req.params.id);
+eventCtrl.deleteNote = async (req, res) => {
+  await Event.findByIdAndDelete(req.params.id);
   req.flash('success_msg', 'Event Deleted Successfully');
   res.redirect('/notes');
 };
 
-module.exports = notesCtrl;
+module.exports = eventCtrl;
