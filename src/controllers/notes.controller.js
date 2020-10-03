@@ -31,12 +31,15 @@ notesCtrl.createNewNote = async (req, res) => {
   }
 };
 
+
 notesCtrl.renderNotes = async (req, res) => {
   const notes = await Note.find({ user: req.user.id })
     .sort({ date: 'desc' })
     .lean();
   res.render('notes/all-notes', { notes });
 };
+
+
 
 notesCtrl.renderEditForm = async (req, res) => {
   const note = await Note.findById(req.params.id).lean();
