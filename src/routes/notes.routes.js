@@ -8,7 +8,8 @@ const {
   renderNotes,
   renderEditForm,
   updateNote,
-  deleteNote
+  deleteNote,
+  renderAllEvents
 } = require('../controllers/notes.controller');
 
 // Helpers
@@ -18,6 +19,9 @@ const { isAuthenticated } = require('../helpers/auth');
 router.get('/notes/add', isAuthenticated, renderNoteForm);
 
 router.post('/notes/new-note', isAuthenticated, createNewNote);
+
+// Get All Events for Front end
+router.post('/notes/allEvents',renderAllEvents);
 
 // Get All Notes
 router.get('/notes', isAuthenticated, renderNotes);

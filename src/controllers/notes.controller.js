@@ -32,14 +32,17 @@ eventCtrl.createNewNote = async (req, res) => {
 };
 
 
-eventCtrl.renderNotes = async (req, res) => {
+
+eventCtrl.renderAllEvents = async (req, res) => {
   const notes = await Event.find({ user: req.user.id })
     .sort({ date: 'desc' })
     .lean();
   res.render('notes/all-notes', { notes });
 };
 
-
+eventCtrl.renderNotes =(req, res) =>{
+  res.send('all events without security ');
+};
 
 eventCtrl.renderEditForm = async (req, res) => {
   const note = await Event.findById(req.params.id).lean();
